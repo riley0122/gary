@@ -10,6 +10,7 @@ namespace Gary
         public void PlacePiece(IPiece piece, Square square) {
             if (!board.ContainsKey(square)) {
                 board[square] = piece;
+                Console.WriteLine($"Placed piece: {piece.GetPieceSymbol()} at {square}");
             } else {
                 throw new InvalidOperationException("[ChessBoard] Square already occupied!");
             }
@@ -42,7 +43,8 @@ namespace Gary
         }
 
         public void LoadFromFEN(string fen) {
-            string[] parts = fen.Split("  ");
+            Console.WriteLine($"Loading FEN: {fen}");
+            string[] parts = fen.Split(" ");
             string pieces = parts[0];
             string[] ranks = pieces.Split("/");
 
@@ -69,6 +71,7 @@ namespace Gary
         }
 
         private IPiece CreatePieceFromSymbol(char symbol, Square square) {
+            Console.WriteLine($"Creating piece from symbol: {symbol} at {square}");
             switch (symbol)
             {
                 case 'P': return new Pawn(square, true); // White pawn
@@ -80,9 +83,9 @@ namespace Gary
                 case 'B': return new Bishop(square, true); // White bishop
                 case 'b': return new Bishop(square, false); // Black bishop
                 case 'Q': return new Queen(square, true); // White queen
-                case 'q': return new Queen(square, true); // Black queen
+                case 'q': return new Queen(square, false); // Black queen
                 case 'K': return new King(square, true); // White king
-                case 'k': return new King(square, true); // Black king
+                case 'k': return new King(square, false); // Black king
                 default: return null;
             }
         }

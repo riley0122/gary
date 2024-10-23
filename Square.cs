@@ -20,5 +20,17 @@ namespace Gary
             }
             this.rank = rank;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Square square &&
+                   file == square.file &&
+                   rank == square.rank;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(file, rank);
+        }
     }
 }
