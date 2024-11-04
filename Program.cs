@@ -44,6 +44,16 @@ namespace Gary
                                 Square fromSquare = new Square(move[0], move[1] - '0', internal_board);
                                 Square toSquare = new Square(move[2], move[3] - '0', internal_board);
                                 IPiece frompiece = internal_board.GetPieceAt(fromSquare);
+                                bool shouldBeWhite = frompiece.isWhite;
+                                if (move.Length == 5) {
+                                    internal_board.RemovePiece(fromSquare);
+                                    if (shouldBeWhite) {
+                                        internal_board.PlacePiece(internal_board.CreatePieceFromSymbol(char.ToUpper(move[4]), fromSquare), fromSquare);
+                                    } else {
+                                        internal_board.PlacePiece(internal_board.CreatePieceFromSymbol(char.ToLower(move[4]), fromSquare), fromSquare);
+                                    }
+                                }
+                                frompiece = internal_board.GetPieceAt(fromSquare);
                                 frompiece.Move(toSquare);
                             }
                         }
@@ -121,7 +131,9 @@ namespace Gary
             // For now get a random move
             List<string> all_moves = new List<string>();
             foreach((IPiece piece, Square square) in internal_board.GetAllLegalMoves()) {
-                all_moves.Add(piece.CurrentPosition.ToString() + square.ToString());
+                string promoteTo = "";
+                if(square.rank == 8 || square.rank == 1) promoteTo = "q";
+                all_moves.Add(piece.CurrentPosition.ToString() + square.ToString() + promoteTo);
             }
             Random rng = new Random();
             return all_moves[rng.Next(all_moves.Count)];

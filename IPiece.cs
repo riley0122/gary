@@ -14,6 +14,7 @@ namespace Gary
                 IPiece toPiece = board.GetPieceAt(targetSquare);
                 if (toPiece is not null) board.RemovePiece(targetSquare);
                 board.PlacePiece(this, targetSquare);
+                board.whiteToMove = !board.whiteToMove;
             }
         }
         string GetPieceSymbol();

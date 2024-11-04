@@ -25,7 +25,6 @@ namespace Gary
         public void RemovePiece(Square square) {
             if (board.ContainsKey(square)) {
                 board.Remove(square);
-                this.whiteToMove = !this.whiteToMove;
             } else {
                 throw new InvalidOperationException("[ChessBoard] No piece to remove at this square!");
             }
@@ -89,7 +88,7 @@ namespace Gary
             this.whiteToMove = pieces[1] != 'w';
         }
 
-        private IPiece CreatePieceFromSymbol(char symbol, Square square) {
+        public IPiece CreatePieceFromSymbol(char symbol, Square square) {
             switch (symbol)
             {
                 case 'P': return new Pawn(square, true); // White pawn
