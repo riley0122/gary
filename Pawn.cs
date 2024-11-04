@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 namespace Gary
 {
     public class Pawn : IPiece
@@ -69,8 +71,62 @@ namespace Gary
         }
 
         public Square[] GetValidMoves() {
-            // TODO: imlpement getting moves
-            return [];
+            Square[] legalMoves = [];
+            if (this.isWhite) {
+                if (this.CurrentPosition.rank == 2) {
+                    Square longSquare = new Square(this.CurrentPosition.file, this.CurrentPosition.rank + 2, this.CurrentPosition.board);
+                    if (this.IsMoveValid(longSquare)) {
+                        legalMoves.Append(longSquare);
+                    }
+                }
+
+                Square shortSquare = new Square(this.CurrentPosition.file, this.CurrentPosition.rank + 1, this.CurrentPosition.board);
+                if (this.IsMoveValid(shortSquare)) {
+                    legalMoves.Append(shortSquare);
+                }
+
+                if (this.CurrentPosition.file != 'h') {
+                    Square leftCaptureSquare = new Square((char)(this.CurrentPosition.file + 1), this.CurrentPosition.rank + 1, this.CurrentPosition.board);
+                    if (this.IsMoveValid(leftCaptureSquare)) {
+                        legalMoves.Append(leftCaptureSquare);
+                    }
+                }
+
+                if (this.CurrentPosition.file != 'a') {
+                    Square rightCaptureSquare = new Square((char)(this.CurrentPosition.file - 1), this.CurrentPosition.rank + 1, this.CurrentPosition.board);
+                    if (this.IsMoveValid(rightCaptureSquare)) {
+                        legalMoves.Append(rightCaptureSquare);
+                    }
+                }
+            } else {
+                if (this.CurrentPosition.rank == 7) {
+                    Square longSquare = new Square(this.CurrentPosition.file, this.CurrentPosition.rank - 2, this.CurrentPosition.board);
+                    if (this.IsMoveValid(longSquare)) {
+                        legalMoves.Append(longSquare);
+                    }
+                }
+
+                Square shortSquare = new Square(this.CurrentPosition.file, this.CurrentPosition.rank - 1, this.CurrentPosition.board);
+                if (this.IsMoveValid(shortSquare)) {
+                    legalMoves.Append(shortSquare);
+                }
+
+                if (this.CurrentPosition.file != 'h') {
+                    Square leftCaptureSquare = new Square((char)(this.CurrentPosition.file - 1), this.CurrentPosition.rank - 1, this.CurrentPosition.board);
+                    if (this.IsMoveValid(leftCaptureSquare)) {
+                        legalMoves.Append(leftCaptureSquare);
+                    }
+                }
+
+                if (this.CurrentPosition.file != 'a') {
+                    Square rightCaptureSquare = new Square((char)(this.CurrentPosition.file - 1), this.CurrentPosition.rank - 1, this.CurrentPosition.board);
+                    if (this.IsMoveValid(rightCaptureSquare)) {
+                        legalMoves.Append(rightCaptureSquare);
+                    }
+                }
+            }
+
+            return legalMoves;
         }
 
         public void Move(Square targetSquare) {
