@@ -22,7 +22,10 @@ namespace Gary
 
         public void Move(Square targetSquare) {
             if (IsMoveValid(targetSquare)) {
+                ChessBoard board = CurrentPosition.board;
+                board.RemovePiece(CurrentPosition);
                 CurrentPosition = targetSquare;
+                board.PlacePiece(this, targetSquare);
             }
         }
 
