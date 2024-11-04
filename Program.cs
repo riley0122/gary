@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Security.Cryptography.X509Certificates;
-
-namespace Gary
+﻿namespace Gary
 {
     internal class Program
     {

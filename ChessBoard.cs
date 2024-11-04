@@ -1,5 +1,3 @@
-using System.Reflection;
-
 namespace Gary
 {
     public class ChessBoard {

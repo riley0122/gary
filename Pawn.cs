@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace Gary
 {
     public class Pawn : IPiece
