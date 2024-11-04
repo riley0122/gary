@@ -71,62 +71,62 @@ namespace Gary
         }
 
         public Square[] GetValidMoves() {
-            Square[] legalMoves = [];
+            List<Square> legalMoves = new List<Square>();
             if (this.isWhite) {
                 if (this.CurrentPosition.rank == 2) {
                     Square longSquare = new Square(this.CurrentPosition.file, this.CurrentPosition.rank + 2, this.CurrentPosition.board);
                     if (this.IsMoveValid(longSquare)) {
-                        legalMoves.Append(longSquare);
+                        legalMoves.Add(longSquare);
                     }
                 }
 
                 Square shortSquare = new Square(this.CurrentPosition.file, this.CurrentPosition.rank + 1, this.CurrentPosition.board);
                 if (this.IsMoveValid(shortSquare)) {
-                    legalMoves.Append(shortSquare);
+                    legalMoves.Add(shortSquare);
                 }
 
                 if (this.CurrentPosition.file != 'h') {
                     Square leftCaptureSquare = new Square((char)(this.CurrentPosition.file + 1), this.CurrentPosition.rank + 1, this.CurrentPosition.board);
                     if (this.IsMoveValid(leftCaptureSquare)) {
-                        legalMoves.Append(leftCaptureSquare);
+                        legalMoves.Add(leftCaptureSquare);
                     }
                 }
 
                 if (this.CurrentPosition.file != 'a') {
                     Square rightCaptureSquare = new Square((char)(this.CurrentPosition.file - 1), this.CurrentPosition.rank + 1, this.CurrentPosition.board);
                     if (this.IsMoveValid(rightCaptureSquare)) {
-                        legalMoves.Append(rightCaptureSquare);
+                        legalMoves.Add(rightCaptureSquare);
                     }
                 }
             } else {
                 if (this.CurrentPosition.rank == 7) {
                     Square longSquare = new Square(this.CurrentPosition.file, this.CurrentPosition.rank - 2, this.CurrentPosition.board);
                     if (this.IsMoveValid(longSquare)) {
-                        legalMoves.Append(longSquare);
+                        legalMoves.Add(longSquare);
                     }
                 }
 
                 Square shortSquare = new Square(this.CurrentPosition.file, this.CurrentPosition.rank - 1, this.CurrentPosition.board);
                 if (this.IsMoveValid(shortSquare)) {
-                    legalMoves.Append(shortSquare);
+                    legalMoves.Add(shortSquare);
                 }
 
                 if (this.CurrentPosition.file != 'h') {
-                    Square leftCaptureSquare = new Square((char)(this.CurrentPosition.file - 1), this.CurrentPosition.rank - 1, this.CurrentPosition.board);
+                    Square leftCaptureSquare = new Square((char)(this.CurrentPosition.file + 1), this.CurrentPosition.rank - 1, this.CurrentPosition.board);
                     if (this.IsMoveValid(leftCaptureSquare)) {
-                        legalMoves.Append(leftCaptureSquare);
+                        legalMoves.Add(leftCaptureSquare);
                     }
                 }
 
                 if (this.CurrentPosition.file != 'a') {
                     Square rightCaptureSquare = new Square((char)(this.CurrentPosition.file - 1), this.CurrentPosition.rank - 1, this.CurrentPosition.board);
                     if (this.IsMoveValid(rightCaptureSquare)) {
-                        legalMoves.Append(rightCaptureSquare);
+                        legalMoves.Add(rightCaptureSquare);
                     }
                 }
             }
 
-            return legalMoves;
+            return legalMoves.ToArray();
         }
 
         public void Move(Square targetSquare) {
