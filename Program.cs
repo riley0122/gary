@@ -30,11 +30,23 @@ namespace Gary
                         // reset
                     break;
                     case "position":
+                        internal_board = new ChessBoard();
                         string fen = args[1];
                         if (args[1] == "startpos") {
                             fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
                         }
                         internal_board.LoadFromFEN(fen);
+                        if (args.Length >= 3 && args[2] == "moves") {
+                            string[] moves = args[3..args.Length];
+                            foreach (string move in moves)
+                            {
+                                Square fromSquare = new Square(move[0], move[1] - '0', internal_board);
+                                Square toSquare = new Square(move[2], move[3] - '0', internal_board);
+                                IPiece piece = internal_board.GetPieceAt(fromSquare);
+                                if (piece is null) continue;
+                                piece.Move(toSquare);
+                            }
+                        }
                     break;
                     case "go":
                         // Start calculating
