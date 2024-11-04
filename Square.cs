@@ -2,15 +2,17 @@ namespace Gary
 {
     public class Square
     {
-        private char file;
-        private int rank;
+        public char file;
+        public int rank;
 
         
+        public ChessBoard board;
+
         public override string ToString() {
             return file.ToString() + rank.ToString();
         }
 
-        public Square(char file, int rank) {
+        public Square(char file, int rank, ChessBoard board) {
             if (file < 'a' || file > 'h') {
                 throw new ArgumentOutOfRangeException("[Square] File outside of range!");
             }
@@ -19,6 +21,8 @@ namespace Gary
                 throw new ArgumentOutOfRangeException("[Square] Rank outside of range!");
             }
             this.rank = rank;
+
+            this.board = board;
         }
 
         public override bool Equals(object obj)

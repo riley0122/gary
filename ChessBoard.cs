@@ -33,7 +33,7 @@ namespace Gary
             string boardString = "";
             for (int rank = 8; rank >= 1; rank--) {
                 for (char file = 'a'; file <= 'h'; file++) {
-                    Square square = new Square(file, rank);
+                    Square square = new Square(file, rank, this);
                     IPiece? piece = GetPieceAt(square);
                     boardString += (piece != null ? piece.GetPieceSymbol() : ".") + " ";
                 }
@@ -58,7 +58,7 @@ namespace Gary
                         fileIndex += symbol - '0';
                     } else {
                         char file = (char)('a' + fileIndex);
-                        Square square = new Square(file, rank);
+                        Square square = new Square(file, rank, this);
 
                         IPiece piece = CreatePieceFromSymbol(symbol, square);
                         if (piece != null) {
