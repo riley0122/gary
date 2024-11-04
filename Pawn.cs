@@ -101,5 +101,9 @@ namespace Gary
         public string GetPieceSymbol() {
             return isWhite ? "P" : "p";
         }
+        
+        public IPiece Clone() {
+            return new Pawn(CurrentPosition, this.isWhite);
+        }
     }
 }

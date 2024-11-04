@@ -42,7 +42,7 @@
                         }
                     break;
                     case "go":
-                        Console.Write("info score cp " + internal_board.getScore() + "\n");
+                        // Console.Write("info score cp " + internal_board.getScore() + "\n");
                         string bestmove = getBestMove(internal_board);
                         Console.Write("bestmove " + bestmove + "\n");
                     break;
@@ -112,14 +112,25 @@
         {
             // TODO: Actually get the best move
             // For now get a random move
-            List<string> all_moves = new List<string>();
+            List<(string move, int score)> all_moves = new List<(string move, int score)>();
             foreach((IPiece piece, Square square) in internal_board.GetAllLegalMoves()) {
                 string promoteTo = "";
                 if(square.rank == 8 || square.rank == 1) promoteTo = "q";
-                all_moves.Add(piece.CurrentPosition.ToString() + square.ToString() + promoteTo);
+                string moveString = piece.CurrentPosition.ToString() + square.ToString() + promoteTo;
+
+                ChessBoard hypotheticalBoard = internal_board.ImageineMove(moveString);
+                int score = hypotheticalBoard.getScore();
+                Console.Write("info debug" + score + "\n");
+
+                all_moves.Add((moveString, score));
             }
-            Random rng = new Random();
-            return all_moves[rng.Next(all_moves.Count)];
+            
+            var bestmove = all_moves.OrderBy(m => m.score).FirstOrDefault();                
+            if (internal_board.whiteToMove) {
+                bestmove = all_moves.OrderByDescending(m => m.score).FirstOrDefault();
+            }
+            
+            return bestmove.move;
         }
     }
 }

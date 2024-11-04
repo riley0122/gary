@@ -25,5 +25,9 @@ namespace Gary
         public string GetPieceSymbol() {
             return isWhite ? "B" : "b";
         }
+
+        public IPiece Clone() {
+            return new Bishop(CurrentPosition, this.isWhite);
+        }
     }
 }

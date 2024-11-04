@@ -25,5 +25,9 @@ namespace Gary
         public string GetPieceSymbol() {
             return isWhite ? "R" : "r";
         }
+
+        public IPiece Clone() {
+            return new Rook(CurrentPosition, this.isWhite);
+        }
     }
 }

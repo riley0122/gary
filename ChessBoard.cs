@@ -137,5 +137,42 @@ namespace Gary
                 default: return null;
             }
         }
+
+        public ChessBoard(ChessBoard original) {
+            this.whiteToMove = original.whiteToMove;
+            this.board = new Dictionary<Square, IPiece>();
+
+            foreach (var item in original.board)
+            {
+                Square square = item.Key;
+                IPiece piece = item.Value;
+
+                IPiece clonedPiece = piece.Clone();
+                this.board[square] = clonedPiece;   
+            }
+        }
+
+        public ChessBoard ImageineMove(string move) {
+            ChessBoard hypotheticalBoard = new ChessBoard(this);
+
+            Square fromSquare = new Square(move[0], move[1] - '0', hypotheticalBoard);
+            Square toSquare = new Square(move[2], move[3] - '0', hypotheticalBoard);
+
+            IPiece? movingPiece = hypotheticalBoard.GetPieceAt(fromSquare);
+            if (movingPiece == null)
+            {
+                throw new InvalidOperationException("[ChessBoard] No piece to move at the specified from-square.");
+            }
+
+            hypotheticalBoard.RemovePiece(fromSquare);
+            if (hypotheticalBoard.GetPieceAt(toSquare) is not null) {
+                hypotheticalBoard.RemovePiece(toSquare);
+            }
+            hypotheticalBoard.PlacePiece(movingPiece, toSquare);
+            movingPiece.Move(toSquare);
+
+            hypotheticalBoard.whiteToMove = !this.whiteToMove;
+            return hypotheticalBoard;
+        }
     }
 }

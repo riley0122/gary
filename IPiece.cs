@@ -19,5 +19,7 @@ namespace Gary
             }
         }
         string GetPieceSymbol();
+
+        IPiece Clone();
     }
 }
