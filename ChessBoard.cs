@@ -85,7 +85,7 @@ namespace Gary
                 }
             }
 
-            this.whiteToMove = pieces[1] == 'w';
+            this.whiteToMove = pieces[1] != 'w';
         }
 
         private IPiece CreatePieceFromSymbol(char symbol, Square square) {
