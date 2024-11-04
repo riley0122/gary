@@ -90,8 +90,8 @@ namespace Gary
             return isWhite ? "B" : "b";
         }
 
-        public IPiece Clone() {
-            return new Bishop(CurrentPosition, this.isWhite);
+        public IPiece Clone(ChessBoard toBoard) {
+            return new Bishop(new Square(CurrentPosition.file, CurrentPosition.rank, toBoard), this.isWhite);
         }
     }
 }

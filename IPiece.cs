@@ -20,6 +20,6 @@ namespace Gary
         }
         string GetPieceSymbol();
 
-        IPiece Clone();
+        IPiece Clone(ChessBoard toBoard);
     }
 }

@@ -108,8 +108,8 @@ namespace Gary
             return isWhite ? "Q" : "q";
         }
 
-        public IPiece Clone() {
-            return new Queen(CurrentPosition, this.isWhite);
+        public IPiece Clone(ChessBoard toBoard) {
+            return new Queen(new Square(CurrentPosition.file, CurrentPosition.rank, toBoard), this.isWhite);
         }
     }
 }

@@ -72,8 +72,8 @@ namespace Gary
             return isWhite ? "R" : "r";
         }
 
-        public IPiece Clone() {
-            return new Rook(CurrentPosition, this.isWhite);
+        public IPiece Clone(ChessBoard toBoard) {
+            return new Rook(new Square(CurrentPosition.file, CurrentPosition.rank, toBoard), this.isWhite);
         }
     }
 }

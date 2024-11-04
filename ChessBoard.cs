@@ -147,7 +147,7 @@ namespace Gary
                 Square square = item.Key;
                 IPiece piece = item.Value;
 
-                IPiece clonedPiece = piece.Clone();
+                IPiece clonedPiece = piece.Clone(this);
                 this.board[square] = clonedPiece;   
             }
         }
@@ -159,7 +159,7 @@ namespace Gary
             Square toSquare = new Square(move[2], move[3] - '0', hypotheticalBoard);
 
             IPiece? movingPiece = hypotheticalBoard.GetPieceAt(fromSquare);
-            if (movingPiece == null)
+            if (movingPiece is null)
             {
                 throw new InvalidOperationException("[ChessBoard] No piece to move at the specified from-square.");
             }

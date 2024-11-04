@@ -53,8 +53,8 @@ namespace Gary
             return isWhite ? "N" : "n";
         }
 
-        public IPiece Clone() {
-            return new Knight(CurrentPosition, this.isWhite);
+        public IPiece Clone(ChessBoard toBoard) {
+            return new Knight(new Square(CurrentPosition.file, CurrentPosition.rank, toBoard), this.isWhite);
         }
     }
 }
