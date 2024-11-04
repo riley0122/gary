@@ -98,15 +98,6 @@ namespace Gary
             return legalMoves.ToArray();
         }
 
-        public void Move(Square targetSquare) {
-            if (IsMoveValid(targetSquare)) {
-                ChessBoard board = CurrentPosition.board;
-                board.RemovePiece(CurrentPosition);
-                CurrentPosition = targetSquare;
-                board.PlacePiece(this, targetSquare);
-            }
-        }
-
         public string GetPieceSymbol() {
             return isWhite ? "P" : "p";
         }

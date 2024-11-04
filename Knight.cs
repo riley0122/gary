@@ -20,15 +20,6 @@ namespace Gary
             return [];
         }
 
-        public void Move(Square targetSquare) {
-            if (IsMoveValid(targetSquare)) {
-                ChessBoard board = CurrentPosition.board;
-                board.RemovePiece(CurrentPosition);
-                CurrentPosition = targetSquare;
-                board.PlacePiece(this, targetSquare);
-            }
-        }
-
         public string GetPieceSymbol() {
             return isWhite ? "N" : "n";
         }

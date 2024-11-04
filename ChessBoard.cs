@@ -3,6 +3,7 @@ using System.Reflection;
 namespace Gary
 {
     public class ChessBoard {
+        public bool whiteToMove = true;
         private Dictionary<Square, IPiece> board;
 
         public ChessBoard() {
@@ -33,6 +34,7 @@ namespace Gary
             List<(IPiece, Square)> LegalMoves = new List<(IPiece, Square)>();
             foreach (IPiece piece in board.Values)
             {
+                if (piece.isWhite != this.whiteToMove) continue;
                 Square[] piece_legalMoves = piece.GetValidMoves();
                 foreach (Square legalMove in piece_legalMoves)
                 {
@@ -82,6 +84,8 @@ namespace Gary
                     }
                 }
             }
+
+            this.whiteToMove = pieces[1] == 'w';
         }
 
         private IPiece CreatePieceFromSymbol(char symbol, Square square) {
