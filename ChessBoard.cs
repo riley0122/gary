@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace Gary
 {
     public class ChessBoard {
@@ -25,6 +27,20 @@ namespace Gary
             } else {
                 throw new InvalidOperationException("[ChessBoard] No piece to remove at this square!");
             }
+        }
+
+        public (IPiece, Square)[] GetAllLegalMoves() {
+            List<(IPiece, Square)> LegalMoves = new List<(IPiece, Square)>();
+            foreach (IPiece piece in board.Values)
+            {
+                Square[] piece_legalMoves = piece.GetValidMoves();
+                foreach (Square legalMove in piece_legalMoves)
+                {
+                    LegalMoves.Add((piece, legalMove));
+                }
+            }
+
+            return LegalMoves.ToArray();
         }
 
         public override string ToString()

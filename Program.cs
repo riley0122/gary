@@ -49,7 +49,8 @@ namespace Gary
                         }
                     break;
                     case "go":
-                        // Start calculating
+                        string bestmove = getBestMove(internal_board);
+                        Console.Write("bestmove " + bestmove + "\n");
                     break;
                     case "stop":
                         // Actually stop
@@ -111,6 +112,18 @@ namespace Gary
                     break;
                 }
             }
+        }
+
+        private static string getBestMove(ChessBoard internal_board)
+        {
+            // TODO: Actually get the best move
+            // For now get a random move
+            List<string> all_moves = new List<string>();
+            foreach((IPiece piece, Square square) in internal_board.GetAllLegalMoves()) {
+                all_moves.Add(piece.CurrentPosition.ToString() + square.ToString());
+            }
+            Random rng = new Random();
+            return all_moves[rng.Next(all_moves.Count)];
         }
     }
 }
