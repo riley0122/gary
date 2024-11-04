@@ -6,10 +6,12 @@ namespace Gary
     {
         public Square CurrentPosition { get; set; }
         public bool isWhite { get; }
+        public int pointValue { get; }
 
         public Pawn(Square initialPosition, bool isWhite) {
             this.CurrentPosition = initialPosition;
             this.isWhite = isWhite;
+            this.pointValue = 1;
         }
 
         public bool IsMoveValid(Square targetSquare) {

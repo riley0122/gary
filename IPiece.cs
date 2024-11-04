@@ -4,6 +4,7 @@ namespace Gary
     {
         Square CurrentPosition { get; set; }
         bool isWhite { get; }
+        int pointValue { get; }
         bool IsMoveValid(Square targetSquare);
         Square[] GetValidMoves();
         public void Move(Square targetSquare) {

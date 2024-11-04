@@ -18,6 +18,22 @@ namespace Gary
             }
         }
 
+        // Get a score for the current board.
+        // White is higher
+        // Black is lower
+        public int getScore() {
+            int score = 0;
+            foreach (IPiece piece in board.Values)
+            {
+                if (piece.isWhite != this.whiteToMove) {
+                    score -= piece.pointValue;
+                } else {
+                    score += piece.pointValue;
+                }
+            }
+            return score;
+        }
+
         public IPiece? GetPieceAt(Square square) {
             return board.ContainsKey(square) ? board[square] : null;
         }
