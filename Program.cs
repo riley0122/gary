@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Gary
 {
@@ -42,13 +43,13 @@ namespace Gary
                             {
                                 Square fromSquare = new Square(move[0], move[1] - '0', internal_board);
                                 Square toSquare = new Square(move[2], move[3] - '0', internal_board);
-                                IPiece piece = internal_board.GetPieceAt(fromSquare);
-                                if (piece is null) continue;
-                                piece.Move(toSquare);
+                                IPiece frompiece = internal_board.GetPieceAt(fromSquare);
+                                frompiece.Move(toSquare);
                             }
                         }
                     break;
                     case "go":
+                        Console.Write("info White to move: " + internal_board.whiteToMove + "\n");
                         string bestmove = getBestMove(internal_board);
                         Console.Write("bestmove " + bestmove + "\n");
                     break;

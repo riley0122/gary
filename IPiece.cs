@@ -11,8 +11,9 @@ namespace Gary
                 ChessBoard board = CurrentPosition.board;
                 board.RemovePiece(CurrentPosition);
                 CurrentPosition = targetSquare;
+                IPiece toPiece = board.GetPieceAt(targetSquare);
+                if (toPiece is not null) board.RemovePiece(targetSquare);
                 board.PlacePiece(this, targetSquare);
-                board.whiteToMove = !board.whiteToMove;
             }
         }
         string GetPieceSymbol();

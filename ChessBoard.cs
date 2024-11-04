@@ -25,6 +25,7 @@ namespace Gary
         public void RemovePiece(Square square) {
             if (board.ContainsKey(square)) {
                 board.Remove(square);
+                this.whiteToMove = !this.whiteToMove;
             } else {
                 throw new InvalidOperationException("[ChessBoard] No piece to remove at this square!");
             }
