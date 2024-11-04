@@ -26,6 +26,10 @@ namespace Gary
                 int currentRank = this.CurrentPosition.rank + rankStep;
                 char currentFile = (char)(this.CurrentPosition.file + fileStep);
                 while (currentRank != targetSquare.rank || currentFile != targetSquare.file) {
+                    if (currentRank < 1 || currentRank > 8 || currentFile < 'a' || currentFile > 'h') {
+                        return false;
+                    }
+
                     if (board.GetPieceAt(new Square(currentFile, currentRank, board)) is not null) {
                         return false;
                     }

@@ -115,12 +115,11 @@
             List<(string move, int score)> all_moves = new List<(string move, int score)>();
             foreach((IPiece piece, Square square) in internal_board.GetAllLegalMoves()) {
                 string promoteTo = "";
-                if(square.rank == 8 || square.rank == 1) promoteTo = "q";
+                if((square.rank == 8 || square.rank == 1) && piece.GetPieceSymbol().ToLower() == "p") promoteTo = "q";
                 string moveString = piece.CurrentPosition.ToString() + square.ToString() + promoteTo;
 
                 ChessBoard hypotheticalBoard = internal_board.ImageineMove(moveString);
                 int score = hypotheticalBoard.getScore();
-                Console.Write("info debug" + score + "\n");
 
                 all_moves.Add((moveString, score));
             }
