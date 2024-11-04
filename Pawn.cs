@@ -68,6 +68,11 @@ namespace Gary
             return true;
         }
 
+        public Square[] GetValidMoves() {
+            // TODO: imlpement getting moves
+            return [];
+        }
+
         public void Move(Square targetSquare) {
             if (IsMoveValid(targetSquare)) {
                 CurrentPosition = targetSquare;
