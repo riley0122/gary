@@ -59,7 +59,7 @@ namespace Gary
                         }
                     break;
                     case "go":
-                        Console.Write("info Current score: " + internal_board.getScore() + "\n");
+                        Console.Write("info score cp " + internal_board.getScore() + "\n");
                         string bestmove = getBestMove(internal_board);
                         Console.Write("bestmove " + bestmove + "\n");
                     break;
