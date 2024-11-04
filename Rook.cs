@@ -13,13 +13,55 @@ namespace Gary
         }
 
         public bool IsMoveValid(Square targetSquare) {
-            // TODO: implement correct movement validation
-            return true;
+            ChessBoard board = targetSquare.board;
+            IPiece? targetPiece = board.GetPieceAt(targetSquare);
+
+            int rankDelta = targetSquare.rank - this.CurrentPosition.rank;
+            int fileDelta = targetSquare.file - this.CurrentPosition.file;
+
+            if (fileDelta == 0 || rankDelta == 0) {
+                int rankStep = (rankDelta == 0) ? 0 : (rankDelta > 0 ? 1 : -1);
+                int fileStep = (fileDelta == 0) ? 0 : (rankDelta > 0 ? 1 : -1);
+
+                int currentRank = this.CurrentPosition.rank + rankStep;
+                char currentFile = (char)(this.CurrentPosition.file + fileStep);
+                while (currentRank != targetSquare.rank || currentFile != targetSquare.file) {
+                    if (board.GetPieceAt(new Square(currentFile, currentRank, board)) is not null) {
+                        return false;
+                    }
+                    currentRank += rankStep;
+                    currentFile = (char)(currentFile + fileStep);
+                }
+
+                return targetPiece is null || targetPiece.isWhite != this.isWhite;
+            }
+
+            return false;
         }
 
         public Square[] GetValidMoves() {
-            // TODO: imlpement getting moves
-            return [];
+            List<Square> legalMoves = new List<Square>();
+            ChessBoard board = this.CurrentPosition.board;
+
+            for (char file = 'a'; file <= 'h'; file++) {
+                if (file != this.CurrentPosition.file) {
+                    Square targetSquare = new Square(file, this.CurrentPosition.rank, board);
+                    if (this.IsMoveValid(targetSquare)) {
+                        legalMoves.Add(targetSquare);
+                    }
+                }
+            }
+
+            for (int rank = 1; rank <= 8; rank++) {
+                if (rank != this.CurrentPosition.rank) {
+                    Square targetSquare = new Square(this.CurrentPosition.file, rank, board);
+                    if (this.IsMoveValid(targetSquare)) {
+                        legalMoves.Add(targetSquare);
+                    }
+                }
+            }
+
+            return legalMoves.ToArray();
         }
 
         public string GetPieceSymbol() {
