@@ -44,6 +44,23 @@ namespace Gary
             }
         }
 
+        public void makeMove(string move) {
+            Square fromSquare = new Square(move[0], move[1] - '0', this);
+            Square toSquare = new Square(move[2], move[3] - '0', this);
+            IPiece frompiece = GetPieceAt(fromSquare);
+            bool shouldBeWhite = frompiece.isWhite;
+            if (move.Length == 5) {
+                RemovePiece(fromSquare);
+                if (shouldBeWhite) {
+                    PlacePiece(CreatePieceFromSymbol(char.ToUpper(move[4]), fromSquare), fromSquare);
+                } else {
+                    PlacePiece(CreatePieceFromSymbol(char.ToLower(move[4]), fromSquare), fromSquare);
+                }
+            }
+            frompiece = GetPieceAt(fromSquare);
+            frompiece.Move(toSquare);
+        }
+
         public (IPiece, Square)[] GetAllLegalMoves() {
             List<(IPiece, Square)> LegalMoves = new List<(IPiece, Square)>();
             foreach (IPiece piece in board.Values)

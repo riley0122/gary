@@ -37,20 +37,7 @@
                             string[] moves = args[3..args.Length];
                             foreach (string move in moves)
                             {
-                                Square fromSquare = new Square(move[0], move[1] - '0', internal_board);
-                                Square toSquare = new Square(move[2], move[3] - '0', internal_board);
-                                IPiece frompiece = internal_board.GetPieceAt(fromSquare);
-                                bool shouldBeWhite = frompiece.isWhite;
-                                if (move.Length == 5) {
-                                    internal_board.RemovePiece(fromSquare);
-                                    if (shouldBeWhite) {
-                                        internal_board.PlacePiece(internal_board.CreatePieceFromSymbol(char.ToUpper(move[4]), fromSquare), fromSquare);
-                                    } else {
-                                        internal_board.PlacePiece(internal_board.CreatePieceFromSymbol(char.ToLower(move[4]), fromSquare), fromSquare);
-                                    }
-                                }
-                                frompiece = internal_board.GetPieceAt(fromSquare);
-                                frompiece.Move(toSquare);
+                                internal_board.makeMove(move);
                             }
                         }
                     break;
