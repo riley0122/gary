@@ -159,8 +159,7 @@ namespace Gary
             Square toSquare = new Square(move[2], move[3] - '0', hypotheticalBoard);
 
             IPiece? movingPiece = hypotheticalBoard.GetPieceAt(fromSquare);
-            if (movingPiece is null)
-            {
+            if (movingPiece is null) {
                 throw new InvalidOperationException("[ChessBoard] No piece to move at the specified from-square.");
             }
 

@@ -13,7 +13,20 @@ namespace Gary
         }
 
         public bool IsMoveValid(Square targetSquare) {
-            // TODO: implement correct movement validation
+            ChessBoard board = targetSquare.board;
+            IPiece? targetPiece = board.GetPieceAt(targetSquare);
+
+            int rankDelta = targetSquare.rank - this.CurrentPosition.rank;
+            int fileDelta = targetSquare.file - this.CurrentPosition.file;
+
+            if (rankDelta > 1 || fileDelta > 1) {
+                return false;
+            }
+
+            if (CurrentPosition.rank + rankDelta < 1 || CurrentPosition.rank + rankDelta > 8 || CurrentPosition.file + fileDelta < 'a' || CurrentPosition.file + fileDelta > 'h') {
+                return false;
+            }
+
             return true;
         }
 

@@ -124,7 +124,7 @@
                 all_moves.Add((moveString, score));
             }
             
-            var bestmove = all_moves.OrderBy(m => m.score).FirstOrDefault();                
+            var bestmove = all_moves.OrderBy(m => m.score).FirstOrDefault();
             if (internal_board.whiteToMove) {
                 bestmove = all_moves.OrderByDescending(m => m.score).FirstOrDefault();
             }
