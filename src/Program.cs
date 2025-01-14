@@ -8,7 +8,7 @@
         static void Main(string[] programArgs)
         {
             ChessBoard internal_board = new ChessBoard();
-            int depth = 3;
+            int depth = 4;
             while (running)
             {
                 string input = Console.ReadLine();
@@ -21,7 +21,7 @@
                         Console.Write("id name Gary\n");
                         Console.Write("id author Riley0122\n");
                         Console.Write("option name ExtraInfo type check\n");
-                        Console.Write("option name Depth type spin default 3\n");
+                        Console.Write("option name Depth type spin default 4\n");
                         Console.Write("uciok\n");
                     break;
                     case "setoption":
@@ -120,7 +120,7 @@
             }
         }
 
-        private static (string move, int score) getBestMove(ChessBoard internal_board, int depth, bool isWhite, string previousMove="")
+        private static (string move, int score) getBestMove(ChessBoard internal_board, int depth, bool isWhite, string previousMove="", int alpha=int.MinValue, int beta=int.MaxValue)
         {
             if (depth == 0) return (previousMove, internal_board.getScore());
 
@@ -135,16 +135,29 @@
                 ChessBoard hypotheticalBoard = internal_board.ImageineMove(moveString);
                 int score = hypotheticalBoard.getScore();
 
-                (string move, int score) nextMove = getBestMove(hypotheticalBoard, depth - 1, isWhite, moveString);
+                (string move, int score) nextMove = getBestMove(hypotheticalBoard, depth - 1, isWhite, moveString, alpha, beta);
 
-                if (isWhite && nextMove.score > bestscore.score) {
-                    bestscore = (moveString, score);
-                } else if(!isWhite && nextMove.score < bestscore.score) {
-                    bestscore = (moveString, score);
+                if (isWhite) {
+                    if (nextMove.score > bestscore.score) {
+                        bestscore = (moveString, nextMove.score);
+                    }
+                    alpha = Math.Max(alpha, bestscore.score);
+                } else {
+                    if (nextMove.score < bestscore.score) {
+                        bestscore = (moveString, nextMove.score);
+                    }
+                    beta = Math.Min(beta, bestscore.score);
                 }
+
+                if (beta <= alpha) {
+                    if (ExtraInfo) {
+                        Console.Write("info Skipping branch (ab-pruning)\n");
+                    }
+                    break;
+                };
             }
             if (ExtraInfo) {
-                Console.Write("info Best move:" + bestscore.move + "\n");
+                Console.Write("info depth " + depth + " currmove" + bestscore.move +"\n");
             }
             return bestscore;
         }

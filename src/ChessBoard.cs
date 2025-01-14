@@ -26,10 +26,10 @@ namespace Gary
             int score = 0;
             foreach (IPiece piece in board.Values)
             {
-                if (piece.isWhite != this.whiteToMove) {
-                    score -= piece.pointValue;
-                } else {
+                if (piece.isWhite) {
                     score += piece.pointValue;
+                } else {
+                    score -= piece.pointValue;
                 }
             }
             return score;
