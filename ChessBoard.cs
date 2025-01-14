@@ -19,7 +19,10 @@ namespace Gary
         // Get a score for the current board.
         // White is higher
         // Black is lower
+
         public int getScore() {
+        // TODO: Actually get the best move
+        // For now get move based on material value
             int score = 0;
             foreach (IPiece piece in board.Values)
             {

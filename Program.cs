@@ -122,8 +122,6 @@
 
         private static (string move, int score) getBestMove(ChessBoard internal_board, int depth, bool isWhite, string previousMove="")
         {
-            // TODO: Actually get the best move
-            // For now get move based on material value
             if (depth == 0) return (previousMove, internal_board.getScore());
 
             if (isWhite) {
