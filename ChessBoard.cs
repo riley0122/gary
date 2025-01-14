@@ -163,14 +163,8 @@ namespace Gary
                 throw new InvalidOperationException("[ChessBoard] No piece to move at the specified from-square.");
             }
 
-            hypotheticalBoard.RemovePiece(fromSquare);
-            if (hypotheticalBoard.GetPieceAt(toSquare) is not null) {
-                hypotheticalBoard.RemovePiece(toSquare);
-            }
-            hypotheticalBoard.PlacePiece(movingPiece, toSquare);
             movingPiece.Move(toSquare);
 
-            hypotheticalBoard.whiteToMove = !this.whiteToMove;
             return hypotheticalBoard;
         }
     }

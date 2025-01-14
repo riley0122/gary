@@ -111,7 +111,7 @@
         private static string getBestMove(ChessBoard internal_board)
         {
             // TODO: Actually get the best move
-            // For now get a random move
+            // For now get move based on material value
             List<(string move, int score)> all_moves = new List<(string move, int score)>();
             foreach((IPiece piece, Square square) in internal_board.GetAllLegalMoves()) {
                 string promoteTo = "";
