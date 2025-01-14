@@ -124,55 +124,29 @@
         {
             if (depth == 0) return (previousMove, internal_board.getScore());
 
-            if (isWhite) {
-                (string move, int score) bestscore = ("", int.MinValue);
-                foreach((IPiece piece, Square square) in internal_board.GetAllLegalMoves()) {
-                    string promoteTo = "";
-                    if((square.rank == 8 || square.rank == 1) && piece.GetPieceSymbol().ToLower() == "p") promoteTo = "q";
-                    string moveString = piece.CurrentPosition.ToString() + square.ToString() + promoteTo;
+            (string move, int score) bestscore = ("", isWhite ? int.MinValue : int.MaxValue);
 
-                    if (ExtraInfo) {
-                        Console.Write("info Analyzing move " + moveString + "\n");
-                    }
+            foreach((IPiece piece, Square square) in internal_board.GetAllLegalMoves()) {
+                string promoteTo = "";
+                if((square.rank == 8 || square.rank == 1) && piece.GetPieceSymbol().ToLower() == "p") promoteTo = "q";
 
-                    ChessBoard hypotheticalBoard = internal_board.ImageineMove(moveString);
-                    int score = hypotheticalBoard.getScore();
+                string moveString = piece.CurrentPosition.ToString() + square.ToString() + promoteTo;
 
-                    (string move, int score) nextMove = getBestMove(hypotheticalBoard, depth - 1, isWhite, moveString);
+                ChessBoard hypotheticalBoard = internal_board.ImageineMove(moveString);
+                int score = hypotheticalBoard.getScore();
 
-                    if (nextMove.score > bestscore.score) {
-                        bestscore = (moveString, score);
-                    }
+                (string move, int score) nextMove = getBestMove(hypotheticalBoard, depth - 1, isWhite, moveString);
+
+                if (isWhite && nextMove.score > bestscore.score) {
+                    bestscore = (moveString, score);
+                } else if(!isWhite && nextMove.score < bestscore.score) {
+                    bestscore = (moveString, score);
                 }
-                if (ExtraInfo) {
-                    Console.Write("info Best move:" + bestscore.move + "\n");
-                }
-                return bestscore;
-            } else {
-                (string move, int score) bestScore = ("", int.MaxValue);
-                foreach((IPiece piece, Square square) in internal_board.GetAllLegalMoves()) {
-                    string promoteTo = "";
-                    if((square.rank == 8 || square.rank == 1) && piece.GetPieceSymbol().ToLower() == "p") promoteTo = "q";
-                    string moveString = piece.CurrentPosition.ToString() + square.ToString() + promoteTo;
-
-                    if (ExtraInfo) {
-                        Console.Write("info Analyzing move " + moveString + "\n");
-                    }
-
-                    ChessBoard hypotheticalBoard = internal_board.ImageineMove(moveString);
-                    int score = hypotheticalBoard.getScore();
-
-                    (string move, int score) nextMove = getBestMove(hypotheticalBoard, depth - 1, isWhite, moveString);
-
-                    if (nextMove.score < bestScore.score) {
-                        bestScore = (moveString, score);
-                    }
-                }
-                if (ExtraInfo) {
-                    Console.Write("info Best move:" + bestScore.move + "\n");
-                }
-                return bestScore;
             }
+            if (ExtraInfo) {
+                Console.Write("info Best move:" + bestscore.move + "\n");
+            }
+            return bestscore;
         }
     }
 }
